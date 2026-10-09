@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" class="intro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT // F1 Championship</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Racing+Sans+One&display=swap');
+
+:root{
+  --bg:#07080d;--panel:#0d0f17;--panel2:#11131d;--text:#f4f5f8;
+  --muted:#8d92a4;--line:rgba(255,255,255,.09);--red:#ff3154;
+  --blue:#4d8dff;--purple:#9b6cff;--cyan:#4de3ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{min-height:100vh;color:var(--text);background:
+radial-gradient(circle at 78% 8%,rgba(155,108,255,.14),transparent 25%),
+radial-gradient(circle at 15% 30%,rgba(77,141,255,.09),transparent 28%),
+radial-gradient(circle at 88% 70%,rgba(255,49,84,.08),transparent 24%),var(--bg);
+font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.32;
+background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+background-size:64px 64px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+.container{width:min(1180px,calc(100% - 48px));margin:auto}
+nav{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:relative;z-index:5}
+.logo{display:flex;align-items:center;gap:12px;font-family:"Space Grotesk";font-weight:700;letter-spacing:.08em}
+.logo-mark{width:48px;height:27px;position:relative;display:flex;align-items:center;flex:0 0 48px}
+.logo-mark svg{width:48px;height:27px;display:block;overflow:visible}
+.logo-mark .cursor{fill:#fff;stroke:#07080d;stroke-width:1.8;stroke-linejoin:round;paint-order:stroke fill}
+.logo-mark .flag-frame{fill:none;stroke:#07080d;stroke-width:.7;stroke-linejoin:round;opacity:.9}
+.logo-mark .checker-light{fill:#f4f5f8}.logo-mark .checker-dark{fill:#151820}
+.logo-mark .speed{fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.logo span{color:#fff}.logo small{color:var(--muted);font-size:9px;letter-spacing:.2em;margin-left:2px}
+.navlinks{display:flex;gap:6px}.navlinks a{color:var(--muted);text-decoration:none;padding:10px 14px;border-radius:9px;font-size:13px;font-weight:600;transition:.25s}
+.navlinks a.active,.navlinks a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.navlinks a.active{box-shadow:inset 0 -2px var(--red)}
+.status{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+.dot{width:7px;height:7px;border-radius:50%;background:#56e39f;box-shadow:0 0 12px #56e39f}
+.hero{padding:78px 0 54px;position:relative}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:28px;align-items:end}
+.kicker{display:flex;align-items:center;gap:10px;color:var(--red);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px}
+.kicker i{display:block;width:30px;height:2px;background:var(--red)}
+h1{font-family:"Space Grotesk";font-size:clamp(56px,8vw,104px);line-height:.88;letter-spacing:-.07em;font-weight:700;max-width:850px}
+h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.6)}
+/* ---- Intro: "THE RACE" flies in from the right, overshoots, settles ---- */
+.race{display:inline-block;position:relative}
+.race .streak{position:absolute;left:100%;height:2px;width:0;opacity:0;pointer-events:none;border-radius:2px}
+.race .s1{top:22%;background:linear-gradient(90deg,rgba(255,49,84,.95),transparent)}
+.race .s2{top:50%;height:3px;background:linear-gradient(90deg,rgba(255,255,255,.9),rgba(77,141,255,.5) 40%,transparent)}
+.race .s3{top:78%;background:linear-gradient(90deg,rgba(155,108,255,.9),transparent)}
+.intro .race{animation:raceZoom 0.4s linear both,raceTrail 0.4s linear both;will-change:transform,filter}
+.intro .race .streak{animation:streak 0.4s linear both}
+.intro .race .s2{animation-delay:.04s}.intro .race .s3{animation-delay:.08s}
+@keyframes raceZoom{
+0%{transform:translateX(112vw) skewX(-30deg) scaleX(1.25);filter:blur(16px)}
+100%{transform:none;filter:blur(0)}}
+@keyframes raceTrail{
+0%,90%{text-shadow:60px 0 0 rgba(255,49,84,.5),120px 0 0 rgba(77,141,255,.3)}
+100%{text-shadow:0 0 0 rgba(255,49,84,0),0 0 0 rgba(77,141,255,0)}}
+@keyframes streak{
+0%,90%{width:70vw;opacity:1}
+100%{width:0;opacity:0}}
+.intro h1 em{display:inline-block;background-image:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.35) 45%,#fff 50%,rgba(255,255,255,.35) 55%,transparent 65%);background-size:300% 100%;background-repeat:no-repeat;-webkit-background-clip:text;background-clip:text;animation:shine .9s .4s ease-in-out both}
+@keyframes shine{
+0%{background-position:100% 0;filter:drop-shadow(0 0 0 rgba(255,255,255,0))}
+50%{filter:drop-shadow(0 0 10px rgba(255,255,255,.45))}
+100%{background-position:0% 0;filter:drop-shadow(0 0 0 rgba(255,255,255,0))}}
+@media(prefers-reduced-motion:reduce){.intro .race,.intro .race .streak,.intro h1 em{animation:none}}
+
+.hero-copy{max-width:570px;color:var(--muted);font-size:14px;line-height:1.7;margin-top:24px}
+.hero-side{text-align:right}.round-label{font-size:11px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+.round-number{font-family:"Space Grotesk";font-size:90px;line-height:.9;font-weight:700;background:linear-gradient(135deg,#fff,#6f7487);-webkit-background-clip:text;color:transparent}
+.round-total{color:#5f6474;font-size:12px}
+.speedline{position:absolute;right:-100px;top:80px;width:460px;height:230px;border-top:1px solid rgba(77,141,255,.2);border-right:1px solid rgba(155,108,255,.18);transform:skewX(-28deg) rotate(-14deg);pointer-events:none}
+.speedline:after{content:"";position:absolute;right:35px;top:65px;width:270px;height:120px;border-top:1px solid rgba(255,49,84,.25);border-right:1px solid rgba(255,49,84,.16)}
+.cards{display:grid;grid-template-columns:1.45fr .8fr .8fr;gap:14px;margin-bottom:54px}
+.card{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.2);transition:transform .3s,border-color .3s,background .3s}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18)}
+.card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-100px;top:-100px;background:var(--glow,var(--blue));opacity:.13;filter:blur(12px)}
+.card-label{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);font-weight:700}
+.leader{min-height:235px;--glow:var(--red)}.leader-main{display:flex;align-items:flex-end;justify-content:space-between;height:160px}
+.position{display:inline-block;font-family:"Racing Sans One","Space Grotesk",sans-serif;font-size:68px;line-height:.9;font-weight:400;font-style:normal;letter-spacing:-.01em;padding:0 8px 0 2px;margin-bottom:12px;
+background:linear-gradient(175deg,#fff 15%,var(--glow) 120%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+filter:drop-shadow(0 0 16px color-mix(in srgb,var(--glow) 40%,transparent))}
+.position.has-num:before{content:"#";font-size:.36em;font-weight:600;letter-spacing:0;margin-right:5px;vertical-align:.95em;-webkit-text-fill-color:var(--glow);opacity:.9}
+.position:after{content:"";display:block;width:38px;height:3px;margin-top:9px;background:var(--glow);transform:skewX(-30deg);border-radius:1px;box-shadow:0 0 12px var(--glow);-webkit-text-fill-color:initial}
+.driver-name{font-family:"Space Grotesk";font-size:28px;font-weight:700;letter-spacing:-.04em}.driver-team{font-size:11px;color:var(--muted);margin-top:6px}
+.points{text-align:right}.points strong{display:block;font-family:"Space Grotesk";font-size:38px}.points span{font-size:10px;color:var(--muted);letter-spacing:.1em}
+.mini{min-height:235px}.mini .big{
+  font-family:"Space Grotesk";
+  font-size:32px;
+  font-weight:700;
+  margin-top:0
+}.mini .sub{font-size:11px;color:var(--muted);margin-top:5px}.constructor-team{
+  font-family:"Space Grotesk";
+  font-size:38px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:-.055em;
+  color:#f4f5f8;
+  margin-top:48px;
+  margin-bottom:8px
+}
+ .blue{--glow:var(--blue)}.purple{--glow:var(--purple)}
+.team-card[data-team="Mercedes"]{--glow:#00d2be}.team-card[data-team="Red Bull"]{--glow:#4d8dff}.team-card[data-team="Ferrari"]{--glow:#e10600}.team-card[data-team="Mclaren"]{--glow:#ff8700}
+.leader[data-team="Mercedes"]{--glow:#00d2be}.leader[data-team="Red Bull"]{--glow:#4d8dff}.leader[data-team="Ferrari"]{--glow:#e10600}.leader[data-team="Mclaren"]{--glow:#ff8700}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}.section-title{font-family:"Space Grotesk";font-size:25px;letter-spacing:-.04em}.section-meta{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.15em}
+.standings{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(13,15,23,.7);backdrop-filter:blur(10px)}
+.row{min-height:64px;display:grid;grid-template-columns:54px minmax(0,1fr) 220px 100px 110px;align-items:center;padding:0 20px;border-bottom:1px solid var(--line);transition:.2s}
+.row:last-child{border-bottom:0}.row:hover{background:rgba(255,255,255,.035)}
+#teams-grid .row{grid-template-columns:54px minmax(0,1fr) 100px 110px}
+.prev{font-family:"Space Grotesk";font-size:14px;font-weight:600;text-align:right;color:var(--muted)}.prev.gain{color:#56e39f}.prev.dns{color:var(--red);font-size:12px;letter-spacing:.08em}
+.row.header{min-height:42px;background:rgba(255,255,255,.025);font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+.num{font-family:"Space Grotesk";font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--muted);opacity:.65;margin-left:9px;vertical-align:1px;transition:opacity .2s,color .2s}.row:hover .num{opacity:1;color:#f4f5f8}
+.rank{font-family:"Space Grotesk";font-weight:700;color:#727789}.name{font-weight:700;font-size:15px}.team{font-size:14px;color:var(--muted);font-weight:600}
+.score{font-family:"Space Grotesk";font-size:19px;font-weight:700;text-align:right}.bar{width:62%;height:3px;background:rgba(255,255,255,.07);border-radius:4px;margin-top:7px;overflow:hidden}
+.bar i{display:block;height:100%;width:78%;background:linear-gradient(90deg,var(--red),var(--purple));border-radius:4px}
+.team{position:relative;display:inline-flex;align-items:center;gap:8px;transition:color .22s ease,text-shadow .22s ease}
+.team::before{content:"";width:14px;height:9px;flex:0 0 14px;display:inline-block;transform:skewX(-24deg);background:linear-gradient(to bottom,var(--team-accent,#8d92a4) 0 43%,transparent 43% 57%,var(--team-accent,#8d92a4) 57% 100%);opacity:.72;transition:opacity .22s ease,transform .22s ease,filter .22s ease}
+.row[data-team="Mercedes"]{--team-accent:#00d2be}.row[data-team="Red Bull"]{--team-accent:#4d8dff}.row[data-team="Ferrari"]{--team-accent:#e10600}.row[data-team="Mclaren"]{--team-accent:#ff8700}
+/* Team accents for constructor standings */
+#teams-grid .row:not(.header) .name{display:flex;align-items:center;gap:11px}
+#teams-grid .row:not(.header) .name::before{content:"";width:18px;height:11px;flex:0 0 18px;display:inline-block;transform:skewX(-24deg);background:linear-gradient(to bottom,var(--team-accent,#8d92a4) 0 43%,transparent 43% 57%,var(--team-accent,#8d92a4) 57% 100%);opacity:.82;transition:opacity .22s ease,transform .22s ease,filter .22s ease}
+#teams-grid .row:not(.header):hover .name{color:#f4f5f8}
+#teams-grid .row:not(.header):hover .name::before{opacity:1;transform:skewX(-24deg) scaleX(1.12);filter:drop-shadow(0 0 5px var(--team-accent))}
+.row:hover .team{color:#f4f5f8;text-shadow:0 0 12px color-mix(in srgb,var(--team-accent) 28%,transparent)}
+.row:hover .team::before{opacity:1;transform:skewX(-24deg) scaleX(1.08);filter:drop-shadow(0 0 5px var(--team-accent))}
+
+/* Full standings button */
+.standings-action{display:flex;justify-content:flex-start;margin-top:14px}
+.standings-action a{display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;border:1px solid rgba(255,255,255,.13);border-radius:8px;background:rgba(255,255,255,.045);color:#b9bdc9;text-decoration:none;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease}
+.standings-action a:hover{color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);transform:translateX(3px)}
+.standings-action a::after{content:"→";margin-left:9px;font-size:13px;transition:transform .2s ease}
+.standings-action a:hover::after{transform:translateX(3px)}
+
+footer{padding:60px 0 32px;color:#555b6c;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.footerline{height:1px;background:var(--line);margin-bottom:22px}
+@media(max-width:850px){.container{width:min(100% - 30px,700px)}.status{display:none}.hero-grid{grid-template-columns:1fr}.hero-side{text-align:left}.round-number{font-size:58px;display:inline}.round-total{margin-left:8px}.cards{grid-template-columns:1fr}.mini{min-height:150px}.mini .big{margin-top:30px}.row{grid-template-columns:40px 1fr 62px 80px}.row .team{display:none}.row.header{grid-template-columns:40px 1fr 62px 80px}#teams-grid .row{grid-template-columns:40px 1fr 62px 80px}.navlinks a{padding:8px;font-size:11px}.logo small{display:none}}
+@media(max-width:500px){.hero{padding-top:55px}h1{font-size:58px}.leader-main{height:145px}}
+.view{display:none}.view.active{display:block}.page-title{font-family:"Space Grotesk";font-size:42px;letter-spacing:-.05em;margin:28px 0 8px}.page-subtitle{color:var(--muted);font-size:13px;margin-bottom:24px}
+
+/* ---- Analytics ---- */
+.tabs{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.03);margin-bottom:22px}
+.tab{font:600 13px Inter,system-ui,sans-serif;color:var(--muted);background:none;border:0;padding:9px 18px;border-radius:9px;cursor:pointer;transition:.2s}
+.tab:hover{color:#fff}.tab.active{color:#fff;background:rgba(255,255,255,.07);box-shadow:inset 0 -2px var(--red)}
+.pane{display:none}.pane.active{display:block}
+.an-panel{background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.an-panel .card-label{margin-bottom:16px}
+.an-note{color:var(--muted);font-size:12px;margin:-6px 0 18px}
+.donuts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:26px 20px}
+.dn{text-align:center}
+.dn-team{font-family:"Space Grotesk";font-weight:700;font-size:15px;letter-spacing:-.02em;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+.dn-team i{width:8px;height:8px;border-radius:50%;display:block}
+.dn svg{width:176px;height:176px;overflow:visible;display:block;margin:0 auto 12px}
+.dn-arc{transition:stroke-width .2s,filter .2s}.dn-arc:hover{stroke-width:23}
+.dn-total{font-family:"Space Grotesk";font-size:34px;font-weight:700;letter-spacing:-.04em;fill:#f4f5f8}
+.dn-sub{font-size:9px;letter-spacing:.2em;fill:#8d92a4;font-weight:700}
+.dn-legend{display:grid;gap:7px;text-align:left;max-width:210px;margin:auto}
+.dn-li{display:grid;grid-template-columns:10px 1fr auto;gap:8px;align-items:center;font-size:12px}
+.dn-li i{width:10px;height:10px;border-radius:3px;display:block}
+.dn-li span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}.dn-li b{font-weight:600;color:var(--text)}
+.wi-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;align-items:start}
+.wi-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.wi-head .card-label{margin:0}
+.wi-reset{font:600 12px Inter,system-ui,sans-serif;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;transition:.2s}.wi-reset:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.wi-in{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid var(--line)}.wi-in:first-child{border-top:0}
+.wi-who{display:flex;align-items:center;gap:11px;min-width:0}
+.wi-dot{width:8px;height:8px;border-radius:50%;flex:none;display:block}
+.wi-n{font-family:"Space Grotesk";font-weight:700;font-size:15px;letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wi-b{font-size:11px;color:var(--muted);margin-top:2px}
+.wi-ctl{display:flex;align-items:center;gap:6px;flex:none}
+.wi-ctl button{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font:600 16px Inter,sans-serif;cursor:pointer;transition:.15s;line-height:1}.wi-ctl button:hover{background:rgba(255,255,255,.12)}
+.wi-ctl input{width:58px;height:30px;text-align:center;border-radius:8px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--muted);font:700 14px "Space Grotesk",sans-serif;-moz-appearance:textfield;appearance:textfield}
+.wi-ctl input::-webkit-outer-spin-button,.wi-ctl input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.wi-ctl input:focus{outline:0;border-color:var(--blue)}.wi-in.on input{color:#fff;border-color:rgba(255,255,255,.3)}
+.wi-r{display:grid;grid-template-columns:28px 10px minmax(0,1fr) auto 50px;gap:10px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}.wi-r:first-child{border-top:0}
+.wi-pos{font-family:"Space Grotesk";font-weight:700;color:var(--muted);font-size:14px}
+.wi-pts{font-family:"Space Grotesk";font-weight:700;font-size:17px;text-align:right;font-variant-numeric:tabular-nums}
+.wi-pts small{display:block;font-size:10px;font-weight:600;margin-top:1px}
+.wi-mv{font-size:12px;font-weight:700;text-align:right;color:var(--muted)}
+.wi-r .bar{width:100%;margin-top:6px}
+
+.an-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.ar{display:grid;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.ar:first-child{border-top:0}
+.ar.h{font-size:9px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;font-weight:700;padding:0 0 8px}
+.ar.h span:nth-child(n+3){text-align:right}
+.gp{grid-template-columns:24px minmax(0,1fr) 58px 58px}
+.tt{grid-template-columns:24px minmax(0,1fr) 58px 96px}
+.lr{grid-template-columns:minmax(0,140px) minmax(0,1fr) 46px}
+.ar .num-r{text-align:right;font-family:"Space Grotesk";font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}
+.mb{height:6px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden;position:relative;margin-top:6px}
+.mb i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;display:block}.mb i.g{background:rgba(255,255,255,.16)}
+.mb.thick{height:10px;margin:0}
+.chip{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:6px;border:1px solid var(--line);color:var(--muted);text-align:center;white-space:nowrap}
+.chip.ok{color:#56e39f;border-color:rgba(86,227,159,.35);background:rgba(86,227,159,.08)}
+.chip.out{color:var(--red);border-color:rgba(255,49,84,.35);background:rgba(255,49,84,.07)}
+.chip.lead{color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}
+.share-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:22px;justify-content:center}
+.share-wrap svg{width:200px;height:200px;overflow:visible;flex:none}
+.share-wrap .dn-legend{flex:1 1 180px;max-width:none}
+.share-wrap .dn-arc{opacity:.72;filter:saturate(.6)}.share-wrap .dn-arc:hover{opacity:1;filter:none}
+@media(max-width:900px){.an-grid{grid-template-columns:1fr}}
+.up{color:#56e39f}.down{color:var(--red)}
+@media(max-width:850px){.wi-layout{grid-template-columns:1fr}}
+
+/* ---- Mobile nav: links drop to their own row instead of being hidden ---- */
+@media(max-width:640px){nav{height:auto;flex-wrap:wrap;padding:14px 0 10px;row-gap:8px}.navlinks{order:3;width:100%;overflow-x:auto;scrollbar-width:none;gap:2px;margin:0 -8px;padding:0 8px}.navlinks::-webkit-scrollbar{display:none}.navlinks a{flex:none;white-space:nowrap}}
+@media(max-width:560px){.tabs{display:flex;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{flex:none;white-space:nowrap;padding:9px 13px}}
+
+/* ---- Season progress ---- */
+.season{margin-bottom:54px}
+.pcard{padding:20px 22px;border:1px solid var(--line);border-radius:16px;background:rgba(13,15,23,.7);backdrop-filter:blur(10px)}
+.segs{display:grid;grid-template-columns:repeat(var(--n,16),minmax(0,1fr));gap:6px}
+.seg-w{display:flex;flex-direction:column;align-items:center;gap:7px}
+.seg{width:100%;height:10px;border-radius:3px;background:rgba(255,255,255,.08);transform:skewX(-24deg)}
+.seg.done{background:#8d92a4}
+.seg.next{background:#fff;animation:segpulse 1.6s ease-in-out infinite}
+.sn{font-size:9px;color:#5f6474;font-weight:600;font-variant-numeric:tabular-nums}
+@keyframes segpulse{0%,100%{opacity:.45}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.seg.next{animation:none}}
+.seg-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px;font-size:12px;color:var(--muted)}.seg-foot b{color:var(--text);font-weight:600}
+
+/* ---- Driver profile + teammate battle ---- */
+.row[data-driver]{cursor:pointer}.row[data-driver]:focus-visible,.link:focus-visible{outline:1px solid rgba(255,255,255,.35);outline-offset:-1px}
+.link{cursor:pointer}.link:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.back{font:600 12px Inter,system-ui,sans-serif;color:var(--muted);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;margin:26px 0 0;transition:.2s}.back:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.pf-hero{position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:28px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));box-shadow:0 20px 60px rgba(0,0,0,.2);margin:14px 0 14px}
+.pf-hero:before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;right:-120px;top:-140px;background:var(--glow);opacity:.15;filter:blur(14px)}
+.pf-hero .position{font-size:92px;margin-bottom:10px}
+.pf-name{font-family:"Space Grotesk";font-size:clamp(30px,5vw,46px);font-weight:700;letter-spacing:-.05em;line-height:1}
+.pf-team{display:flex;align-items:center;gap:9px;color:var(--muted);font-weight:600;font-size:14px;margin-top:12px}.pf-team i{width:8px;height:8px;border-radius:50%;display:block}
+.pf-hero .points strong{font-size:56px;line-height:1}
+.pf-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pf-tile{background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.pf-tile .k{font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);font-weight:700}
+.pf-tile .v{font-family:"Space Grotesk";font-size:30px;font-weight:700;letter-spacing:-.04em;margin-top:12px;font-variant-numeric:tabular-nums}.pf-tile .v.up{color:#56e39f}.pf-tile .v.down{color:var(--red)}
+.pf-tile .s{font-size:11px;color:var(--muted);margin-top:5px}
+@media(max-width:700px){.pf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pf-hero{padding:22px}.pf-hero .position{font-size:76px}}
+.bt-vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;margin:16px 0}
+.bt-side{min-width:0}.bt-side.r{text-align:right}.bt-side.r .wi-n{display:block}
+.bt-pts{font-family:"Space Grotesk";font-size:34px;font-weight:700;letter-spacing:-.04em;margin-top:4px;font-variant-numeric:tabular-nums}
+.bt-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.bt-mid{font-size:10px;letter-spacing:.2em;color:var(--muted);font-weight:700}
+.bt-sum{font-size:12px;color:var(--muted);margin-top:14px}.bt-sum b{color:var(--text);font-weight:600}
+.placeholder{padding:50px 20px;border:1px dashed var(--line);border-radius:16px;text-align:center;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="container">
+<nav>
+<div class="logo"><div class="logo-mark" aria-label="CBT racing checkered flag logo"><svg viewBox="0 0 72 32" role="img" aria-hidden="true"><defs><clipPath id="flagTrailClip"><path d="M19 7 L57 4 L51 22 L23 19 Z"/></clipPath></defs><path class="speed" d="M18 6 L58 2.8"/><path class="speed" d="M20 23.2 L53 20.2"/><g clip-path="url(#flagTrailClip)"><rect class="checker-light" x="18" y="4" width="40" height="20"/><g class="checker-dark"><rect x="18" y="4" width="5" height="5"/><rect x="28" y="4" width="5" height="5"/><rect x="38" y="4" width="5" height="5"/><rect x="48" y="4" width="5" height="5"/><rect x="23" y="9" width="5" height="5"/><rect x="33" y="9" width="5" height="5"/><rect x="43" y="9" width="5" height="5"/><rect x="53" y="9" width="5" height="5"/><rect x="18" y="14" width="5" height="5"/><rect x="28" y="14" width="5" height="5"/><rect x="38" y="14" width="5" height="5"/><rect x="48" y="14" width="5" height="5"/></g></g><path class="flag-frame" d="M19 7 L57 4 L51 22 L23 19 Z"/><path class="cursor" d="M4 2 L15 27 L20 18 L29 26 L33 22 L24 14 L36 11 Z"/></svg></div><span>CBT</span><small>F1 CHAMPIONSHIP</small></div>
+<div class="navlinks"><a class="active" href="#home" data-view="home">Home</a><a href="#drivers" data-view="drivers">Drivers</a><a href="#teams" data-view="teams">Teams</a><a href="#races" data-view="races">Races</a><a href="#analytics" data-view="analytics">Analytics</a></div>
+<div class="status"><i class="dot"></i> Season Live</div>
+</nav>
+<main>
+<section id="home" class="view active">
+<section class="hero"><div class="speedline"></div><div class="hero-grid"><div><div class="kicker"><i></i> Formula 1 Championship</div><h1><span class="race">THE RACE<i class="streak s1"></i><i class="streak s2"></i><i class="streak s3"></i></span><br><em>FOR GLORY.</em></h1><p class="hero-copy">Track every point, podium and championship swing across the season.</p></div><div class="hero-side"><div class="round-label">Current Round</div><div class="round-number">14</div><span class="round-total">/ 16 ROUNDS</span></div></div></section>
+<section class="cards"><article class="card leader" id="leader-card"><div class="card-label">Championship Leader</div><div class="leader-main"><div><div class="position has-num" id="leader-position">7</div><div class="driver-name" id="leader-name">Anshuman Garg</div><div class="driver-team" id="leader-team">Mercedes</div></div><div class="points"><strong id="leader-points">179</strong><span>POINTS</span></div></div></article><article class="card mini team-card" id="constructor-card"><div class="card-label">Constructors</div><div class="constructor-team" id="constructor-team">Mercedes</div><div class="big" id="constructor-points">180</div><div class="sub">LEADER'S TEAM POINTS</div></article><article class="card mini purple" id="next-card"><div class="card-label">Next Grand Prix</div><div class="constructor-team" id="next-date">11 OCT</div><div class="big" id="next-count">—</div><div class="sub" id="next-sub"></div></article></section>
+<section class="season"><div class="section-head"><div class="section-title">Season Progress</div><div class="section-meta" id="season-meta"></div></div><div class="pcard"><div class="segs" id="segs"></div><div class="seg-foot"><span id="seg-done"></span><span id="seg-next"></span></div></div></section>
+<section><div class="section-head"><div class="section-title">Driver Standings</div><div class="section-meta" id="home-meta">Season 2026</div></div>
+<div class="standings" id="home-standings"></div>
+<div class="standings-action"><a href="#drivers" data-view="drivers">View Full Standings</a></div>
+</section>
+</section>
+<section id="drivers" class="view"><div class="page-title">Driver Standings</div><div class="page-subtitle">Season 2026 · Championship leaderboard</div><div class="standings" id="drivers-table"></div></section>
+<section id="profile" class="view"><button class="back" id="profile-back">← Back</button><div id="profile-body"></div></section>
+<section id="teams" class="view"><div class="page-title">Team Standings</div><div class="page-subtitle">Season 2026 · Constructor championship leaderboard</div><div class="standings" id="teams-grid"></div></section>
+<section id="races" class="view"><div class="page-title">Races</div><div class="page-subtitle">Season 2026 · Results from previous races</div><div class="placeholder">Race results will be added later.</div></section>
+<section id="analytics" class="view"><div class="page-title">Analytics</div><div class="page-subtitle">Season 2026 · Charts and what-if tools</div>
+<div class="tabs"><button class="tab active" data-tab="an-overview">Overview</button><button class="tab" data-tab="an-team">Teammates</button><button class="tab" data-tab="an-title">Title Race</button><button class="tab" data-tab="an-whatif">What If</button></div>
+<div class="pane active" id="an-overview"><div class="an-panel"><div class="card-label">Team Points Distribution</div><div class="an-note">Each ring is a team. Each arc is one driver's share of that team's points.</div><div class="donuts" id="donuts"></div></div>
+<div class="an-grid">
+<div class="an-panel"><div class="card-label">Points Share</div><div class="an-note">Each driver's share of all points scored this season.</div><div id="share"></div></div>
+<div class="an-panel"><div class="card-label">Last Race · Points Scored</div><div class="an-note">Points each driver gained in the previous race.</div><div id="lastrace"></div></div>
+</div>
+</div>
+<div class="pane" id="an-team"><div class="an-grid" id="battles" style="margin-top:0"></div></div>
+<div class="pane" id="an-title"><div class="an-grid" style="margin-top:0">
+<div class="an-panel"><div class="card-label">Championship Gap</div><div class="an-note">How far each driver is behind the leader and the driver ahead.</div><div id="gaps"></div></div>
+<div class="an-panel"><div class="card-label">Title Still Possible?</div><div class="an-note" id="title-note"></div><div id="title-race"></div></div>
+</div>
+<div class="an-panel" style="margin-top:16px"><div class="card-label">Constructors' Title Still Possible?</div><div class="an-note" id="ctitle-note"></div><div id="ctitle-race"></div></div></div>
+<div class="pane" id="an-whatif"><div class="wi-layout">
+<div class="an-panel"><div class="wi-head"><div class="card-label">Adjust points</div><button class="wi-reset" id="wi-reset">Reset all</button></div><div id="wi-inputs"></div></div>
+<div><div class="an-panel"><div class="card-label">Projected driver standings</div><div id="wi-drivers"></div></div><div class="an-panel" style="margin-top:16px"><div class="card-label">Projected team standings</div><div id="wi-teams"></div></div></div>
+</div></div>
+</section>
+</main>
+<footer><div class="footerline"></div>CBT // F1 Championship Dashboard</footer>
+</div>
+<script>
+const drivers=[
+{pos:1,num:7,name:"Anshuman Garg",prev:25,team:"Mercedes",points:179,bar:100},
+{pos:2,num:2,name:"Mihir Thakur",prev:18,team:"Red Bull",points:145,bar:81},
+{pos:3,num:45,name:"Aryan Mishra",prev:16,team:"Ferrari",points:120,bar:67},
+{pos:4,num:33,name:"Prajwal Zurale",prev:4,team:"Mclaren",points:84,bar:47},
+{pos:5,num:12,name:"Agastya Arya",prev:10,team:"Mclaren",points:89,bar:50},
+{pos:6,num:10,name:"Tanmay Katiyaar",prev:0,team:"Ferrari",points:20,bar:13},
+{pos:7,num:69,name:"Akshaj Yarlagadda",prev:0,team:"Red Bull",points:2,bar:2},
+{pos:8,num:18,name:"Shivam Chanshetti",prev:"DNS",team:"Mercedes",points:1,bar:1}
+];
+// Auto-ranking: edit only the points above; order, position and bar width update themselves.
+drivers.sort((a,b)=>b.points-a.points);
+const maxPts=Math.max(1,drivers[0]?drivers[0].points:1);
+drivers.forEach((d,i)=>{d.pos=i+1;d.bar=Math.round(d.points/maxPts*100)});
+const HOME_ROWS=5;
+const numTag=d=>d.num!=null?'<span class="num">#'+d.num+'</span>':'';
+const prevCell=v=>v==="DNS"?'<span class="prev dns">DNS</span>':'<span class="prev'+(v>0?' gain':'')+'">+'+(v||0)+'</span>';
+const HDR='<div class="row header"><span>Pos</span><span>Driver</span><span>Team</span><span style="text-align:right">Prev Race</span><span style="text-align:right">Points</span></div>';
+const driverRow=(d,pad)=>'<div class="row" data-driver="'+d.name+'" tabindex="0" title="View profile" data-team="'+d.team+'"><span class="rank">'+(pad?String(d.pos).padStart(2,'0'):d.pos)+'</span><div><div class="name">'+d.name+numTag(d)+'</div><div class="bar"><i style="width:'+d.bar+'%"></i></div></div><span class="team">'+d.team+'</span>'+prevCell(d.prev)+'<span class="score">'+d.points+'</span></div>';
+function renderHome(){
+document.getElementById('home-standings').innerHTML=HDR+drivers.slice(0,HOME_ROWS).map(d=>driverRow(d,false)).join('');
+document.getElementById('home-meta').textContent='Top '+Math.min(HOME_ROWS,drivers.length)+' · Season 2026';
+}
+function renderDrivers(){
+document.getElementById('drivers-table').innerHTML=HDR+drivers.map(d=>driverRow(d,true)).join('');
+}
+function renderTeams(){
+const grouped={},prevByTeam={};
+drivers.forEach(d=>{grouped[d.team]=(grouped[d.team]||0)+d.points;prevByTeam[d.team]=(prevByTeam[d.team]||0)+(typeof d.prev==='number'?d.prev:0)});
+const teams=Object.entries(grouped).sort((a,b)=>b[1]-a[1]);
+const max=teams[0]?.[1]||1;
+const el=document.getElementById('teams-grid');
+el.innerHTML='<div class="row header"><span>Pos</span><span>Team</span><span style="text-align:right">Prev Race</span><span style="text-align:right">Points</span></div>'+teams.map((t,i)=>'<div class="row" data-team="'+t[0]+'"><span class="rank">'+String(i+1).padStart(2,'0')+'</span><div><div class="name">'+t[0]+'</div><div class="bar"><i style="width:'+Math.round(t[1]/max*100)+'%"></i></div></div>'+prevCell(prevByTeam[t[0]])+'<span class="score">'+t[1]+'</span></div>').join('');
+}
+
+let currentView='home';
+function showView(id){
+currentView=id;const navId=id==='profile'?'drivers':id;
+document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
+document.querySelectorAll('.navlinks a').forEach(a=>a.classList.toggle('active',a.dataset.view===navId));
+}
+document.querySelectorAll('a[data-view]').forEach(a=>a.addEventListener('click',e=>{
+e.preventDefault();const id=a.dataset.view;history.replaceState(null,'','#'+id);showView(id);
+}));
+
+const teamAccents={"Mercedes":"#00d2be","Red Bull":"#4d8dff","Ferrari":"#e10600","Mclaren":"#ff8700"};
+function updateHomeCards(){
+const leader=drivers.reduce((best,d)=>d.points>best.points?d:best,drivers[0]);
+const grouped={};drivers.forEach(d=>grouped[d.team]=(grouped[d.team]||0)+d.points);
+const constructorLeader=Object.entries(grouped).sort((a,b)=>b[1]-a[1])[0];
+const lp=document.getElementById("leader-position");lp.textContent=leader.num!=null?leader.num:String(leader.pos).padStart(2,"0");lp.classList.toggle("has-num",leader.num!=null);
+document.getElementById("leader-name").textContent=leader.name;
+document.getElementById("leader-team").textContent=leader.team;
+document.getElementById("leader-points").textContent=leader.points;
+const leaderCard=document.getElementById("leader-card");leaderCard.dataset.team=leader.team;leaderCard.style.setProperty("--glow",teamAccents[leader.team]||"#ff3154");
+document.getElementById("constructor-team").textContent=constructorLeader[0];document.getElementById("constructor-points").textContent=constructorLeader[1];
+const constructorCard=document.getElementById("constructor-card");constructorCard.dataset.team=constructorLeader[0];constructorCard.style.setProperty("--glow",teamAccents[constructorLeader[0]]||"#4d8dff");
+}
+
+/* ---- Analytics ---- */
+const shade=(hex,t)=>{const n=parseInt(hex.slice(1),16),m=c=>Math.round(c+(255-c)*t);return 'rgb('+m(n>>16)+','+m((n>>8)&255)+','+m(n&255)+')'};
+const TINTS=[0,.5,.72,.86];
+function renderDonuts(){
+const R=60,C=2*Math.PI*R,GAP=3;
+const byTeam={};drivers.forEach(d=>{(byTeam[d.team]=byTeam[d.team]||[]).push(d)});
+const order=Object.entries(byTeam).map(([t,m])=>[t,m.slice().sort((a,b)=>b.points-a.points)]).sort((a,b)=>b[1].reduce((x,d)=>x+d.points,0)-a[1].reduce((x,d)=>x+d.points,0));
+document.getElementById('donuts').innerHTML=order.map(([team,members])=>{
+const accent=teamAccents[team]||'#8d92a4',total=members.reduce((x,d)=>x+d.points,0);
+let start=0;
+const arcs=members.map((d,i)=>{
+const share=total?d.points/total:0,gap=members.filter(m=>m.points>0).length>1?GAP:0,len=Math.max(0,share*C-gap),col=shade(accent,TINTS[Math.min(i,3)]);
+const el=share>0?'<circle class="dn-arc" cx="80" cy="80" r="'+R+'" fill="none" stroke="'+col+'" stroke-width="18" stroke-dasharray="'+len+' '+(C-len)+'" stroke-dashoffset="'+(-(start+gap/2))+'" transform="rotate(-90 80 80)"><title>'+d.name+': '+d.points+' pts ('+Math.round(share*100)+'%)</title></circle>':'';
+start+=share*C;return {el,col,d,share};
+});
+return '<div class="dn"><div class="dn-team"><i style="background:'+accent+'"></i>'+team+'</div>'
++'<svg viewBox="0 0 160 160" role="img" aria-label="'+team+' points split by driver"><circle cx="80" cy="80" r="'+R+'" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="18"/>'+arcs.map(a=>a.el).join('')
++'<text class="dn-total" x="80" y="84" text-anchor="middle">'+total+'</text><text class="dn-sub" x="80" y="102" text-anchor="middle">POINTS</text></svg>'
++'<div class="dn-legend">'+arcs.map(a=>'<div class="dn-li"><i style="background:'+a.col+'"></i><span><b>'+a.d.name+'</b></span><span>'+a.d.points+' · '+Math.round(a.share*100)+'%</span></div>').join('')+'</div></div>';
+}).join('');
+}
+
+const wi={};
+const wiBar=(v,max)=>'<div class="bar"><i style="width:'+Math.max(0,Math.min(100,Math.round(v/max*100)))+'%"></i></div>';
+const wiMv=dl=>dl>0?'<span class="wi-mv up">▲'+dl+'</span>':dl<0?'<span class="wi-mv down">▼'+(-dl)+'</span>':'<span class="wi-mv">–</span>';
+const wiDelta=x=>x>0?'<small class="up">+'+x+'</small>':x<0?'<small class="down">'+x+'</small>':'';
+function renderWhatIfInputs(){
+document.getElementById('wi-inputs').innerHTML=drivers.map(d=>'<div class="wi-in" data-name="'+d.name+'"><div class="wi-who"><span class="wi-dot" style="background:'+(teamAccents[d.team]||'#8d92a4')+'"></span><div><div class="wi-n">'+d.name+numTag(d)+'</div><div class="wi-b">'+d.points+' pts now</div></div></div><div class="wi-ctl"><button data-act="dec" aria-label="Remove a point">−</button><input type="number" step="1" value="0" aria-label="Extra points for '+d.name+'"><button data-act="inc" aria-label="Add a point">+</button></div></div>').join('');
+}
+function renderWhatIf(){
+const proj=drivers.map(d=>({d,x:wi[d.name]||0,pts:d.points+(wi[d.name]||0)})).sort((a,b)=>b.pts-a.pts);
+document.getElementById('wi-drivers').innerHTML=proj.map((r,i)=>'<div class="wi-r"><span class="wi-pos">'+(i+1)+'</span><span class="wi-dot" style="background:'+(teamAccents[r.d.team]||'#8d92a4')+'"></span><div><div class="wi-n">'+r.d.name+numTag(r.d)+'</div>'+wiBar(r.pts,Math.max(1,proj[0].pts))+'</div><span class="wi-pts">'+r.pts+wiDelta(r.x)+'</span>'+wiMv(r.d.pos-(i+1))+'</div>').join('');
+const rank=fn=>{const t={};drivers.forEach(d=>{t[d.team]=(t[d.team]||0)+fn(d)});return Object.entries(t).sort((a,b)=>b[1]-a[1])};
+const base=rank(d=>d.points),now=rank(d=>d.points+(wi[d.name]||0));
+document.getElementById('wi-teams').innerHTML=now.map(([t,pts],i)=>{const b=base.findIndex(x=>x[0]===t),bp=base[b][1];return '<div class="wi-r"><span class="wi-pos">'+(i+1)+'</span><span class="wi-dot" style="background:'+(teamAccents[t]||'#8d92a4')+'"></span><div><div class="wi-n">'+t+'</div>'+wiBar(pts,Math.max(1,now[0][1]))+'</div><span class="wi-pts">'+pts+wiDelta(pts-bp)+'</span>'+wiMv(b-i)+'</div>'}).join('');
+}
+
+
+// Points by finishing place among ALL 30 racers (only 8 are in this championship), places 1-12:
+const POINTS_SCALE=[25,22,20,18,17,16,15,12,10,7,4,1];
+const SPRINT_SCALE=[15,14,13,12,11,10]; // subject-test sprints, places 1-6 (used once the Races page exists)
+const FASTEST_LAP=1,GRAND_SLAM=10; // +1 for 100/100 in any one subject; +10 for 300/300 in a CBT. A 300/300 already includes a 100/100, so they do not stack
+const MAX_PER_RACE=POINTS_SCALE[0]+GRAND_SLAM; // best CBT for one driver: 1st place + 300/300 (35)
+const TOTAL_ROUNDS=16,ROUNDS_DONE=14; // update ROUNDS_DONE after every race: hero, progress bar and title panels all follow
+const RACES_LEFT=Math.max(0,TOTAL_ROUNDS-ROUNDS_DONE);
+const SECOND_PER_RACE=POINTS_SCALE[1]+GRAND_SLAM; // a team's best CBT: both teammates can score 300/300, so 2nd place also gets +10 (22+10)
+const acc=t=>teamAccents[t]||'#8d92a4';
+const nameCell=d=>'<div class="wi-n">'+d.name+numTag(d)+'</div>';
+// tint of each driver inside their own team (best scorer = base colour)
+function driverColours(){const seen={},out={};drivers.forEach(d=>{const i=seen[d.team]=(seen[d.team]??-1)+1;out[d.name]=shade(acc(d.team),TINTS[Math.min(i,3)])});return out}
+function renderShare(){
+const R=76,C=2*Math.PI*R,total=drivers.reduce((x,d)=>x+d.points,0),col=driverColours(),GAP=2;
+let start=0;
+const arcs=drivers.map(d=>{const share=total?d.points/total:0,len=Math.max(0,share*C-GAP);
+const el=share>0?'<circle class="dn-arc" cx="100" cy="100" r="'+R+'" fill="none" stroke="'+col[d.name]+'" stroke-width="22" stroke-dasharray="'+len+' '+(C-len)+'" stroke-dashoffset="'+(-(start+GAP/2))+'" transform="rotate(-90 100 100)"><title>'+d.name+': '+d.points+' pts ('+(share*100).toFixed(1)+'%)</title></circle>':'';
+start+=share*C;return {el,d,share}});
+document.getElementById('share').innerHTML='<div class="share-wrap"><svg viewBox="0 0 200 200" role="img" aria-label="Share of season points by driver"><circle cx="100" cy="100" r="'+R+'" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="22"/>'+arcs.map(a=>a.el).join('')+'<text class="dn-total" x="100" y="104" text-anchor="middle">'+total+'</text><text class="dn-sub" x="100" y="122" text-anchor="middle">SEASON POINTS</text></svg>'
++'<div class="dn-legend">'+arcs.map(a=>'<div class="dn-li"><i style="background:'+col[a.d.name]+'"></i><span><b>'+a.d.name+'</b></span><span>'+a.d.points+' · '+(a.share*100).toFixed(1)+'%</span></div>').join('')+'</div></div>';
+}
+function renderLastRace(){
+const num=d=>typeof d.prev==='number'?d.prev:-1;
+const list=drivers.slice().sort((a,b)=>num(b)-num(a)),max=Math.max(1,...list.map(num));
+document.getElementById('lastrace').innerHTML=list.map(d=>{const v=num(d);
+return '<div class="ar lr">'+nameCell(d)+'<div class="mb thick"><i style="width:'+(v>0?Math.max(3,Math.round(v/max*100)):0)+'%;background:#aeb4c4"></i></div>'+(d.prev==='DNS'?'<span class="num-r down" style="font-size:12px">DNS</span>':'<span class="num-r'+(v>0?' up':'')+'" style="'+(v>0?'':'color:var(--muted)')+'">+'+(d.prev||0)+'</span>')+'</div>'}).join('');
+}
+function renderGaps(){
+const lead=drivers[0],maxGap=Math.max(1,...drivers.map(d=>lead.points-d.points));
+document.getElementById('gaps').innerHTML='<div class="ar gp h"><span>Pos</span><span>Driver</span><span>To leader</span><span>To car ahead</span></div>'+drivers.map((d,i)=>{
+const toLead=lead.points-d.points,toAhead=i?drivers[i-1].points-d.points:null;
+const bar=i?'<div class="mb"><i style="width:'+Math.max(2,Math.round(toLead/maxGap*100))+'%;background:linear-gradient(90deg,'+acc(d.team)+','+shade(acc(d.team),.5)+')"></i></div>':'<div class="mb"><i style="width:0"></i></div>';
+const a=i?'<span class="num-r">−'+toLead+'</span>':'<span class="chip lead" style="justify-self:end">Leader</span>';
+const b=i?'<span class="num-r" style="color:var(--muted)">−'+toAhead+'</span>':(drivers[1]?'<span class="num-r up">+'+(lead.points-drivers[1].points)+'</span>':'<span></span>');
+return '<div class="ar gp"><span class="wi-pos">'+d.pos+'</span><div>'+nameCell(d)+bar+'</div>'+a+b+'</div>'}).join('');
+}
+function renderTitle(){
+const left=Math.max(0,RACES_LEFT),gain=left*MAX_PER_RACE,lead=drivers[0],second=drivers[1];
+const needed=second?Math.max(0,second.points+gain+1-lead.points):0;
+const topMax=Math.max(1,...drivers.map(d=>d.points+gain));
+document.getElementById('title-note').innerHTML=left+' race'+(left===1?'':'s')+' left · up to '+gain+' more points each ('+MAX_PER_RACE+' per CBT: 1st place plus a 300/300). '+(needed>0?'<b style="color:var(--text)">'+lead.name+'</b> needs '+needed+' more to clinch the title.':'<b style="color:var(--text)">'+lead.name+'</b> has clinched the title.');
+document.getElementById('title-race').innerHTML='<div class="ar tt h"><span>Pos</span><span>Driver</span><span>Max pts</span><span>Status</span></div>'+drivers.map((d,i)=>{
+const max=d.points+gain,alive=max>=lead.points;
+const chip=i===0?(needed>0?'<span class="chip lead">Leader</span>':'<span class="chip ok">Champion</span>'):alive?'<span class="chip ok">In contention</span>':'<span class="chip out">Out</span>';
+return '<div class="ar tt"><span class="wi-pos">'+d.pos+'</span><div>'+nameCell(d)+'<div class="mb"><i class="g" style="width:'+Math.round(max/topMax*100)+'%"></i><i style="width:'+Math.round(d.points/topMax*100)+'%;background:linear-gradient(90deg,'+acc(d.team)+','+shade(acc(d.team),.5)+')'+(alive?'':';opacity:.45')+'"></i></div></div><span class="num-r" style="color:var(--muted)">'+max+'</span><span style="justify-self:end">'+chip+'</span></div>'}).join('');
+}
+
+
+function renderTeamTitle(){
+const left=Math.max(0,RACES_LEFT),perRace=MAX_PER_RACE+SECOND_PER_RACE,gain=left*perRace;
+const t={};drivers.forEach(d=>{t[d.team]=(t[d.team]||0)+d.points});
+const teams=Object.entries(t).sort((a,b)=>b[1]-a[1]),lead=teams[0],second=teams[1];
+const needed=second?Math.max(0,second[1]+gain+1-lead[1]):0,topMax=Math.max(1,...teams.map(x=>x[1]+gain));
+document.getElementById('ctitle-note').innerHTML=left+' race'+(left===1?'':'s')+' left · up to '+gain+' more points per team ('+perRace+' per CBT: teammates finish 1st and 2nd, both with 300/300). '+(needed>0?'<b style="color:var(--text)">'+lead[0]+'</b> needs '+needed+' more to clinch the title.':'<b style="color:var(--text)">'+lead[0]+'</b> has clinched the title.');
+document.getElementById('ctitle-race').innerHTML='<div class="ar tt h"><span>Pos</span><span>Team</span><span>Max pts</span><span>Status</span></div>'+teams.map(([name,pts],i)=>{
+const max=pts+gain,alive=max>=lead[1];
+const chip=i===0?(needed>0?'<span class="chip lead">Leader</span>':'<span class="chip ok">Champions</span>'):alive?'<span class="chip ok">In contention</span>':'<span class="chip out">Out</span>';
+return '<div class="ar tt"><span class="wi-pos">'+(i+1)+'</span><div><div class="wi-n">'+name+' <span class="num">'+pts+' pts</span></div><div class="mb"><i class="g" style="width:'+Math.round(max/topMax*100)+'%"></i><i style="width:'+Math.round(pts/topMax*100)+'%;background:linear-gradient(90deg,'+acc(name)+','+shade(acc(name),.5)+')'+(alive?'':';opacity:.45')+'"></i></div></div><span class="num-r" style="color:var(--muted)">'+max+'</span><span style="justify-self:end">'+chip+'</span></div>'}).join('');
+}
+
+
+/* ---- Next race, season progress ---- */
+const NEXT_RACE={round:ROUNDS_DONE+1,date:'11 OCT',time:'8:00–11:00 AM IST',start:'2026-10-11T08:00:00+05:30',end:'2026-10-11T11:00:00+05:30'};
+const RACE_WINNERS={14:'Mercedes'}; // round number -> winning team; add one entry after each race (unlisted rounds stay grey)
+function renderSeason(){
+document.querySelector('.round-number').textContent=ROUNDS_DONE;
+document.querySelector('.round-total').textContent='/ '+TOTAL_ROUNDS+' ROUNDS';
+const segs=[];for(let n=1;n<=TOTAL_ROUNDS;n++){const c=n<=ROUNDS_DONE?'done':n===ROUNDS_DONE+1?'next':'';const w=RACE_WINNERS[n],st=c==='done'&&w?' style="background:'+acc(w)+';opacity:.78"':'';segs.push('<div class="seg-w" title="Round '+n+(w?' · won by '+w:'')+'"><div class="seg '+c+'"'+st+'></div><span class="sn">'+n+'</span></div>')}
+const el=document.getElementById('segs');el.style.setProperty('--n',TOTAL_ROUNDS);el.innerHTML=segs.join('');
+document.getElementById('season-meta').textContent=RACES_LEFT+' race'+(RACES_LEFT===1?'':'s')+' left';
+document.getElementById('seg-done').innerHTML='<b>'+ROUNDS_DONE+'</b> of '+TOTAL_ROUNDS+' rounds completed';
+document.getElementById('seg-next').innerHTML=RACES_LEFT>0?'Next: <b>Round '+NEXT_RACE.round+'</b> · '+NEXT_RACE.date:'Season complete';
+}
+function tickNext(){
+const now=Date.now(),s=Date.parse(NEXT_RACE.start),e=Date.parse(NEXT_RACE.end);
+const wd=new Date(s).toLocaleDateString('en-GB',{weekday:'short',timeZone:'Asia/Kolkata'}).toUpperCase();
+let big,sub=wd+' · '+NEXT_RACE.time;
+if(now<s){const m=Math.floor((s-now)/60000),d=Math.floor(m/1440),h=Math.floor(m%1440/60),mm=m%60;big=d>0?d+'d '+h+'h':h>0?h+'h '+mm+'m':mm+'m'}
+else if(now<e)big='LIVE NOW';else{big='DONE';sub='RESULTS COMING SOON'}
+document.getElementById('next-date').textContent=NEXT_RACE.date;
+document.getElementById('next-count').textContent=big;
+document.getElementById('next-sub').textContent='ROUND '+NEXT_RACE.round+' · '+sub;
+}
+
+/* ---- Teammate battle ---- */
+function renderBattle(team){
+const m=drivers.filter(d=>d.team===team);if(m.length<2)return '';
+const a=m[0],b=m[1],accent=acc(team),tot=Math.max(1,a.points+b.points),pa=Math.round(a.points/tot*100),pb=100-pa,gap=a.points-b.points;
+const lr=d=>d.prev==='DNS'?'DNS':'+'+(d.prev||0);
+const side=(d,r)=>'<div class="bt-side'+(r?' r':'')+'"><div class="wi-n link" data-driver="'+d.name+'" tabindex="0">'+d.name+numTag(d)+'</div><div class="bt-pts">'+d.points+'</div><div class="bt-sub">P'+d.pos+' · last race '+lr(d)+'</div></div>';
+return '<div class="bt"><div class="dn-team" style="justify-content:flex-start;margin-bottom:0"><i style="background:'+accent+'"></i>'+team+'</div>'
++'<div class="bt-vs">'+side(a,false)+'<span class="bt-mid">VS</span>'+side(b,true)+'</div>'
++'<div class="mb thick"><i style="left:0;width:'+pa+'%;background:'+accent+'"></i><i style="left:auto;right:0;width:'+pb+'%;background:'+shade(accent,.65)+'"></i></div>'
++'<div class="bt-sum">'+(gap>0?'<b>'+a.name+'</b> leads by '+gap+' point'+(gap===1?'':'s'):'Level on points')+' · '+pa+'% / '+pb+'% of the team total</div></div>';
+}
+function renderBattles(){
+const t={};drivers.forEach(d=>t[d.team]=(t[d.team]||0)+d.points);
+document.getElementById('battles').innerHTML=Object.keys(t).sort((x,y)=>t[y]-t[x]).map(x=>{const h=renderBattle(x);return h?'<div class="an-panel"><div class="card-label">Teammate Battle</div>'+h+'</div>':''}).join('');
+}
+
+/* ---- Driver profile ---- */
+const slug=n=>n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const setHash=h=>{try{history.replaceState(null,'','#'+h)}catch(e){}};
+let profileFrom='drivers';
+function titleStatusOf(d){
+const gain=RACES_LEFT*MAX_PER_RACE,lead=drivers[0],second=drivers[1],needed=second?Math.max(0,second.points+gain+1-lead.points):0,max=d.points+gain;
+if(d===lead)return {max,chip:needed>0?'<span class="chip lead">Leader</span>':'<span class="chip ok">Champion</span>'};
+return {max,chip:max>=lead.points?'<span class="chip ok">In contention</span>':'<span class="chip out">Out</span>'};
+}
+function renderProfile(d){
+const accent=acc(d.team),i=drivers.indexOf(d),lead=drivers[0],ahead=i>0?drivers[i-1]:null,second=drivers[1];
+const total=drivers.reduce((x,y)=>x+y.points,0),ts=titleStatusOf(d);
+const tile=(k,v,sub,cls)=>'<div class="pf-tile"><div class="k">'+k+'</div><div class="v'+(cls?' '+cls:'')+'">'+v+'</div><div class="s">'+sub+'</div></div>';
+const tiles=[
+tile('Position','P'+d.pos,'of '+drivers.length+' drivers'),
+d===lead?tile('Gap to leader','—','championship leader'):tile('Gap to leader','−'+(lead.points-d.points),'behind '+lead.name),
+d===lead?(second?tile('Lead over 2nd','+'+(lead.points-second.points),'ahead of '+second.name,'up'):tile('Lead over 2nd','—','')):tile('Gap to car ahead','−'+(ahead.points-d.points),'behind '+ahead.name),
+d.prev==='DNS'?tile('Last race','DNS','did not start','down'):tile('Last race','+'+(d.prev||0),'points in the previous race',d.prev>0?'up':''),
+tile('Season share',(total?d.points/total*100:0).toFixed(1)+'%','of all points scored'),
+tile('Title chance',ts.chip,'max '+ts.max+' points possible')
+].join('');
+const hasNum=d.num!=null,battle=renderBattle(d.team);
+document.getElementById('profile-body').innerHTML=
+'<div class="pf-hero" style="--glow:'+accent+'"><div><div class="position'+(hasNum?' has-num':'')+'">'+(hasNum?d.num:String(d.pos).padStart(2,'0'))+'</div><div class="pf-name">'+d.name+'</div><div class="pf-team"><i style="background:'+accent+'"></i>'+d.team+' · P'+d.pos+'</div></div><div class="points"><strong>'+d.points+'</strong><span>POINTS</span></div></div>'
++'<div class="pf-grid">'+tiles+'</div>'
++(battle?'<div class="an-panel" style="margin-top:12px"><div class="card-label">Teammate Battle</div>'+battle+'</div>':'')
++'<div class="placeholder" style="margin-top:12px;padding:30px 20px">Race-by-race results will show here once the Races page is filled in.</div>';
+}
+function openProfile(name){
+const d=drivers.find(x=>x.name===name);if(!d)return;
+renderProfile(d);if(currentView!=='profile')profileFrom=currentView;
+showView('profile');setHash('driver-'+slug(name));window.scrollTo(0,0);
+}
+function initProfiles(){
+document.addEventListener('click',e=>{const el=e.target.closest&&e.target.closest('[data-driver]');if(el)openProfile(el.dataset.driver)});
+document.addEventListener('keydown',e=>{const t=e.target;if(e.key==='Enter'&&t.matches&&t.matches('[data-driver]'))openProfile(t.dataset.driver)});
+document.getElementById('profile-back').addEventListener('click',()=>{setHash(profileFrom);showView(profileFrom);window.scrollTo(0,0)});
+}
+function initAnalytics(){
+renderBattles();renderDonuts();renderShare();renderLastRace();renderGaps();renderTitle();renderTeamTitle();renderWhatIfInputs();renderWhatIf();
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
+document.querySelectorAll('.pane').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab));
+}));
+const box=document.getElementById('wi-inputs');
+const sync=row=>{const v=parseInt(row.querySelector('input').value,10)||0;wi[row.dataset.name]=v;row.classList.toggle('on',v!==0);renderWhatIf()};
+box.addEventListener('click',e=>{const btn=e.target.closest('button[data-act]');if(!btn)return;const row=btn.closest('.wi-in'),inp=row.querySelector('input');inp.value=(parseInt(inp.value,10)||0)+(btn.dataset.act==='inc'?1:-1);sync(row)});
+box.addEventListener('input',e=>{if(e.target.matches('input'))sync(e.target.closest('.wi-in'))});
+document.getElementById('wi-reset').addEventListener('click',()=>{Object.keys(wi).forEach(k=>delete wi[k]);box.querySelectorAll('.wi-in').forEach(r=>{r.querySelector('input').value=0;r.classList.remove('on')});renderWhatIf()});
+}
+renderDrivers();renderTeams();renderHome();updateHomeCards();initAnalytics();
+renderSeason();tickNext();setInterval(tickNext,30000);initProfiles();
+const initial=location.hash.slice(1);
+if(initial.startsWith('driver-')){const d=drivers.find(x=>slug(x.name)===initial.slice(7));if(d)openProfile(d.name)}
+else if(['home','drivers','teams','races','analytics'].includes(initial))showView(initial);
+setTimeout(()=>document.documentElement.classList.remove('intro'),1600);
+</script>
+</body>
+</html>
